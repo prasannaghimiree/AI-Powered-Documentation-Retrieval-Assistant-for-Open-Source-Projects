@@ -5,6 +5,7 @@ from langchain_ollama import OllamaEmbeddings, OllamaLLM
 from langchain.prompts.prompt import PromptTemplate
 from langchain_community.llms import Ollama
 from langchain.chains import RetrievalQA
+from llm_naxa_model import model_url
 
 
 def fetch_data(base_url, files):
@@ -69,7 +70,8 @@ def initialize_qa_chain(retriever, model="mistral", max_tokens=1000, temperature
     #     model=model,
     #     config={'max_new_tokens': max_tokens, 'temperature': temperature}
     # )
-    llm = Ollama(model=model, base_url='https://ollama-main.naxa.com.np/')
+    # llm = Ollama(model=model, base_url=model_url)
+    llm = OllamaLLM(model="mistral", base_url=model_url)
 
     prompt_template = """
     Use the following piece of information to answer the user's question.
@@ -100,6 +102,33 @@ def ask_question(qa_chain, query, chat_history=None):
         return answer
     except Exception as e:
         return f"An error occurred: {e}"
+    
+def test_llm():
+   
+
+    
+    try:
+        llm = OllamaLLM(model="mistral", base_url=model_url)
+        print("LLM initialized successfully.")
+
+        
+        prompt_template = """
+        Use the following context to answer the user's question:
+        Context: {context}
+        Question: {question}
+        Answer:
+        """
+        PROMPT = PromptTemplate(template=prompt_template, input_variables=["context", "question"])
+
+        
+        context = "This is a test context about Python programming."
+        question = "What is Python?"
+        prompt = PROMPT.format(context=context, question=question)
+        result = llm.invoke(prompt)
+
+        print("LLM response:", result)
+    except Exception as e:
+        print("Error testing LLM:", e)
 
 
 
@@ -138,4 +167,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+    # test_llm()
 
