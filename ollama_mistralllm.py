@@ -3,6 +3,7 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain_chroma import Chroma
 from langchain_ollama import OllamaEmbeddings, OllamaLLM
 from langchain.prompts.prompt import PromptTemplate
+from langchain_community.llms import Ollama
 from langchain.chains import RetrievalQA
 
 
@@ -64,10 +65,11 @@ def initialize_vectorstore(texts, embedding_model, directory="./chromaaa_db"):
 
 def initialize_qa_chain(retriever, model="mistral", max_tokens=1000, temperature=0.8):
 
-    llm = OllamaLLM(
-        model=model,
-        config={'max_new_tokens': max_tokens, 'temperature': temperature}
-    )
+    # llm = OllamaLLM(
+    #     model=model,
+    #     config={'max_new_tokens': max_tokens, 'temperature': temperature}
+    # )
+    llm = Ollama(model=model, base_url='https://ollama-main.naxa.com.np/')
 
     prompt_template = """
     Use the following piece of information to answer the user's question.
@@ -133,10 +135,7 @@ def main():
         print(f"Answer: {answer}")
 
 
+
 if __name__ == "__main__":
     main()
-
-
-
-
 

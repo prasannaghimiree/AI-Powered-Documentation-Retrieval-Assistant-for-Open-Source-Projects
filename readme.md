@@ -39,7 +39,7 @@ Ensure you have the following installed:
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/your-username/ai-doc-assistant.git
-   cd ai-doc-assistant
+   git clone https://github.com/prasannaghimiree/AI-Powered-Documentation-Retrieval-Assistant-for-Open-Source-Projects.git
+   cd langchain_project_naxa
 
 
