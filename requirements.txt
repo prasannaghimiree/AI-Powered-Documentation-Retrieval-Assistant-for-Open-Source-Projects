@@ -1,0 +1,10 @@
+langchain
+ollama
+# langchain-core==0.0.2
+langchain-community
+langchain-chroma
+langchain-core 
+langchain-ollama
+chromadb
+sentence-transformers
+requests
